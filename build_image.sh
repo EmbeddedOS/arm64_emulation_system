@@ -14,7 +14,7 @@ mv linux-${LINUX_VERSION} linux
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- -C linux defconfig
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- -C linux
 
-# 3. Build rootfs.
+# 3. Build busybox.
 wget https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2
 tar -xvf busybox-${BUSYBOX_VERSION}.tar.bz2
 mv busybox-${BUSYBOX_VERSION} busybox
@@ -22,6 +22,7 @@ make -j$(nproc) ARCH=arm CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- 
 sed -i -e 's/# CONFIG_STATIC is not set/CONFIG_STATIC=y/g' busybox/.config
 make -j$(nproc) ARCH=arm CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- -C busybox
 
+# 4. Build rootfs.
 mkdir -p rootfs/{bin,sbin,etc,proc,sys,usr/{bin,sbin},dev,lib,var/{log,run}}
 
 sudo mknod -m 660 rootfs/dev/mem c 1 1
@@ -45,9 +46,9 @@ cd rootfs
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
 cd ../
 
-# 4. Build bootloader.
+# 5. Build bootloader.
 git clone https://github.com/ARM-software/u-boot.git
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- -C u-boot qemu_arm64_defconfig
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- -C u-boot
 
-# 5. TODO: Compress to final image.
+# 6. TODO: Compress to final image.
