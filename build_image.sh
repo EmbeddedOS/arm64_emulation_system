@@ -24,6 +24,7 @@ make -j$(nproc) ARCH=arm CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- 
 
 # 4. Build rootfs.
 mkdir -p rootfs/{bin,sbin,etc,proc,sys,usr/{bin,sbin},dev,lib,var/{log,run}}
+cd rootfs
 
 sudo mknod -m 660 rootfs/dev/mem c 1 1
 sudo mknod -m 660 rootfs/dev/tty2 c 4 2
