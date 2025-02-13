@@ -1,6 +1,6 @@
 # Build full Linux system for Aarch64
 
-Build a complete bootable Linux image (bootloader, rootfs, kernel, etc.) for Aarch64.
+Build a complete bootable Linux image (bootloader, rootfs, kernel, etc.) for Aarch64. The rootfs is made minimum with busybox.
 
 ```bash
 ./build_image.sh
