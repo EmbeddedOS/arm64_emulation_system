@@ -43,18 +43,19 @@ mount -t sysfs none /sys
 mount -t proc none /proc
 EOF
 
-cat > rootfs/etc/init.d/rc0 << EOF
+cat > rootfs/etc/init.d/rc0 << EOF0
 echo "Configure networking for QEMU..."
 ifconfig eth0 up
 ip a add 10.0.2.15/255.255.255.0 dev eth0
 route add default gw 10.0.2.2 eth0
 
-cat > /etc/resolv.conf << EOF
+cat > rootfs/etc/resolv.conf << EOF1
 nameserver 10.0.2.3
-EOF
-EOF
+EOF1
+EOF0
 
 chmod -R 777 rootfs/etc/init.d/rcS
+chmod -R 777 rootfs/etc/init.d/rc0
 
 cd rootfs
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
