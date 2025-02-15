@@ -38,9 +38,22 @@ ln -sf rootfs/bin/busybox rootfs/init
 
 mkdir -p rootfs/etc/init.d/
 cat > rootfs/etc/init.d/rcS << EOF
+echo "Mounting system..."
 mount -t sysfs none /sys
 mount -t proc none /proc
 EOF
+
+cat > rootfs/etc/init.d/rc0 << EOF
+echo "Configure networking for QEMU..."
+ifconfig eth0 up
+ip a add 10.0.2.15/255.255.255.0 dev eth0
+route add default gw 10.0.2.2 eth0
+
+cat > /etc/resolv.conf << EOF
+nameserver 10.0.2.3
+EOF
+EOF
+
 chmod -R 777 rootfs/etc/init.d/rcS
 
 cd rootfs
