@@ -49,7 +49,7 @@ ifconfig eth0 up
 ip a add 10.0.2.15/255.255.255.0 dev eth0
 route add default gw 10.0.2.2 eth0
 
-cat > rootfs/etc/resolv.conf << EOF1
+cat > /etc/resolv.conf << EOF1
 nameserver 10.0.2.3
 EOF1
 EOF0
