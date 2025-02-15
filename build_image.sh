@@ -37,14 +37,13 @@ cp -av busybox/_install/* rootfs/
 ln -sf rootfs/bin/busybox rootfs/init
 
 mkdir -p rootfs/etc/init.d/
-cat > rootfs/etc/init.d/rcS << EOF
-echo "Mounting system..."
+cat > rootfs/etc/init.d/rcS << EOF0
+# Mounting system...
 mount -t sysfs none /sys
 mount -t proc none /proc
-EOF
 
-cat > rootfs/etc/init.d/rc0 << EOF0
-echo "Configure networking for QEMU..."
+# Configure networking for QEMU...
+ifconfig lo up
 ifconfig eth0 up
 ip a add 10.0.2.15/255.255.255.0 dev eth0
 route add default gw 10.0.2.2 eth0
@@ -55,7 +54,6 @@ EOF1
 EOF0
 
 chmod -R 777 rootfs/etc/init.d/rcS
-chmod -R 777 rootfs/etc/init.d/rc0
 
 cd rootfs
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
