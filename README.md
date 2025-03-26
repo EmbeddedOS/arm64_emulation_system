@@ -24,4 +24,10 @@ To emulate kernel and rootf with 2 network interfaces:
 qemu-system-aarch64 -kernel linux/arch/arm64/boot/Image -initrd rootfs.cpio.gz -machine virt -cpu cortex-a53 -m 1G -nographic -append "root=/dev/mem" -netdev user,id=mynet0,hostfwd=tcp::8080-:80 -device e1000,netdev=mynet0 -net nic,macaddr=52:54:aa:12:35:02,model=virtio
 ```
 
+Boot with MMC:
+
+```bash
+qemu-system-aarch64 -M virt,secure=on -cpu cortex-a57 -nographic -bios flash.bin -m 2048 -d int -device sdhci-pci,sd-spec-version=3 -drive if=none,file=emmc.img,format=raw,id=MMC1 -device sd-card,drive=MMC1
+```
+
 TODO: combine anything to final firmware image and emulating on that.
