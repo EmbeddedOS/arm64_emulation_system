@@ -71,3 +71,10 @@ dd if=arm-trusted-firmware/build/qemu/debug/bl1.bin of=flash.bin bs=4096 conv=no
 dd if=arm-trusted-firmware/build/qemu/debug/fip.bin of=flash.bin seek=64 bs=4096 conv=notrunc
 
 # 7. TODO: Compress to final image.
+dd if=/dev/zero of=emmc.img bs=1k count=204800
+mkfs.ext4 -vm0 emmc.img 204800
+sudo -p /mnt/emmc
+sudo mount -o loop emmc.img /mnt/emmc
+sudo cp linux/arch/arm64/boot/Image /mnt/emmc/
+sudo sync
+sudo umount /mnt/emmc
