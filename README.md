@@ -30,4 +30,10 @@ Boot with MMC:
 qemu-system-aarch64 -M virt,secure=on -cpu cortex-a57 -nographic -bios flash.bin -m 2048 -d int -device sdhci-pci,sd-spec-version=3 -drive if=none,file=emmc.img,format=raw,id=MMC1 -device sd-card,drive=MMC1
 ```
 
+Boot with USB:
+
+```bash
+qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -bios u-boot/u-boot.bin -m 2048 -device usb-ehci,id=ehci  -drive if=none,file=emmc.img,id=image,format=raw -device usb-storage,bus=ehci.0,drive=image
+```
+
 TODO: combine anything to final firmware image and emulating on that.
