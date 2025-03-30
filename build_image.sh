@@ -70,12 +70,16 @@ make CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- PLAT=qemu all fip DE
 dd if=arm-trusted-firmware/build/qemu/debug/bl1.bin of=flash.bin bs=4096 conv=notrunc
 dd if=arm-trusted-firmware/build/qemu/debug/fip.bin of=flash.bin seek=64 bs=4096 conv=notrunc
 
+# 7. Dump QEMU device tree.
+qemu-system-aarch64 -machine virt -machine dumpdtb=qemu.dtb
+
 # 7. TODO: Compress to final image.
-dd if=/dev/zero of=emmc.img bs=1k count=204800
-mkfs.vfat emmc.img
-#mkfs.ext4 -vm0 emmc.img 204800
-sudo mkdir -p /mnt/emmc
-sudo mount -o loop emmc.img /mnt/emmc
-sudo cp linux/arch/arm64/boot/Image /mnt/emmc/
+dd if=/dev/zero of=boot.img bs=1k count=204800
+mkfs.ext4 boot.img
+sudo mkdir -p /mnt/boot
+sudo mount -o loop emmc.img /mnt/boot
+sudo cp linux/arch/arm64/boot/Image /mnt/boot/
+sudo cp qemu.dtb /mnt/boot/
+sudo cp rootfs.cpio.gz /mnt/boot/
 sudo sync
-sudo umount /mnt/emmc
+sudo umount /mnt/boot
