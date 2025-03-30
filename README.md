@@ -30,6 +30,18 @@ Boot with MMC:
 qemu-system-aarch64 -M virt,secure=on -cpu cortex-a57 -nographic -bios flash.bin -m 2048 -d int -device sdhci-pci,sd-spec-version=3 -drive if=none,file=emmc.img,format=raw,id=MMC1 -device sd-card,drive=MMC1
 ```
 
+Boot with SATA:
+
+```bash
+qemu-system-aarch64 -M virt,secure=on -cpu cortex-a57 -nographic -bios u-boot/u-boot.bin -m 2048 -drive if=none,file=disk.img,id=mydisk -device ich9-ahci,id=ahci -device ide-drive,drive=mydisk,bus=ahci.0
+```
+
+Boot with virt block device:
+
+```bash
+
+```
+
 Boot with USB:
 
 ```bash
