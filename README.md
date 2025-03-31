@@ -36,8 +36,9 @@ Boot with SATA:
 qemu-system-aarch64 -M virt,secure=on -cpu cortex-a57 -nographic -bios u-boot/u-boot.bin -m 2048 -drive if=none,file=disk.img,id=mydisk -device ich9-ahci,id=ahci -device ide-drive,drive=mydisk,bus=ahci.0
 => ext4ls scsi 0:0
 => ext4load scsi 0:0 0x40000000 Image
-=> ext4load scsi 0:0 0x41000000 qemu.dtb
-=> booti 0x40000000 - 0x41000000 
+=> ext4load scsi 0:0 0x49000000 qemu.dtb
+=> ext4load scsi 0:0 0x55000000 rootfs.cpio.gz
+=> booti 0x40000000 0x55000000:1147789 0x49000000
 ```
 
 Boot with USB (Build uboot with USB_STORAGE=y):
@@ -47,7 +48,8 @@ qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -bios u-boot/u-boot.bin -
 => ext4ls usb 0:0
 => ext4load usb 0:0 0x40000000 Image
 => ext4load usb 0:0 0x41000000 qemu.dtb
-=> booti 0x40000000 - 0x41000000 
+=> ext4load usb 0:0 0x55000000 rootfs.cpio.gz
+=> booti 0x40000000 0x55000000:1147789 0x49000000
 ```
 
 TODO: combine anything to final firmware image and emulating on that.
