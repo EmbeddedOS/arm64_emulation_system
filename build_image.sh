@@ -70,8 +70,14 @@ make CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- PLAT=qemu all fip DE
 dd if=arm-trusted-firmware/build/qemu/debug/bl1.bin of=flash.bin bs=4096 conv=notrunc
 dd if=arm-trusted-firmware/build/qemu/debug/fip.bin of=flash.bin seek=64 bs=4096 conv=notrunc
 
+make CROSS_COMPILE=../toolchain/bin/aarch64-none-linux-gnu- PLAT=qemu all fip DEBUG=1 BL33=../linux/arch/arm64/boot/Image -j$(nproc) -C arm-trusted-firmware ARM_LINUX_KERNEL_AS_BL33=1
+dd if=arm-trusted-firmware/build/qemu/debug/bl1.bin of=tfa_kernel.bin bs=4096 conv=notrunc
+dd if=arm-trusted-firmware/build/qemu/debug/fip.bin of=tfa_kernel.bin seek=64 bs=4096 conv=notrunc
+ 
+
 # 7. Dump QEMU device tree.
 qemu-system-aarch64 -machine virt -machine dumpdtb=qemu.dtb
+qemu-system-aarch64 -M virt,virtualization=on,secure=on -cpu cortex-a57 -machine dumpdtb=secure_qemu.dtb
 
 # 7. TODO: Compress to final image.
 dd if=/dev/zero of=boot.img bs=1k count=204800
