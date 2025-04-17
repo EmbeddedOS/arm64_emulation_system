@@ -1,0 +1,50 @@
+#!/bin/sh
+
+ROOT="/mnt/.rootfs"
+DISK_DEVICE="/dev/vda"
+PARTITION="2"
+ROOT_DEV=${DISK_DEVICE}${PARTITION}
+
+mount_real_fs() {
+    echo "Pid: $$ mounting ${ROOT_DEV} to ${ROOT}!"
+
+    if [[ "$$" -ne 1 ]] ; then
+        echo "Must be run as PID 1!"
+        return
+    fi
+
+    [ -d ${ROOT} ] || mkdir -p ${ROOT}
+    [ -d ${ROOT_DEV} ] || mknod ${ROOT_DEV} b 254 ${PARTITION}
+
+    mount ${ROOT_DEV} ${ROOT}
+
+    cd ${ROOT}
+
+    echo "Switching to rootfs, bye!"
+    exec switch_root . "/sbin/init"
+}
+
+open_console() {
+    exec /bin/sh +m
+}
+
+/hello_initrd.o
+
+mount -t sysfs none /sys
+mount -t proc none /proc
+
+count=2
+while [ $count -ge 0 ]
+do
+    if read -r -t 1; then
+        open_console
+    else
+        echo -ne "Press Enter to active initrd console: ${count}\r"
+        count=$(( $count - 1 ))
+    fi
+done
+
+mount_real_fs
+
+# If can't mount real rootfs, we active the console. Never exit from a init program.
+open_console

@@ -1,0 +1,1 @@
+echo "Init script here, will be run if user doesn't have /init and uses busybox as a /sbin/init program!"
