@@ -1,0 +1,33 @@
+
+header:
+  version: 1
+machine: lava-machine
+distro: lava-distro
+target:
+  - lava-image
+repos:
+  bitbake:
+    url: "https://git.openembedded.org/bitbake"
+    branch: "2.0"
+    layers:
+      .: excluded
+  openembedded-core:
+    url: "https://git.openembedded.org/openembedded-core"
+    branch: kirkstone
+    layers:
+      meta:
+  meta-arm:
+    url: "git://git.yoctoproject.org/meta-arm"
+    branch: kirkstone
+    layers:
+      meta-arm-toolchain:
+      meta-arm:
+  meta-lava:
+    layers:
+      meta-lava:
+
+local_conf_header:
+  meta-lava: |
+    # Lava Distro build system!
+
+
