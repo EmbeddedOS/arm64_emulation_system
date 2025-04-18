@@ -1,9 +1,6 @@
 [submodule "meta-lava/recipes-bsp/arm-trusted-firmware/files/arm-trusted-firmware"]
 	path = meta-lava/recipes-bsp/arm-trusted-firmware/files/arm-trusted-firmware
 	url = https://github.com/ARM-software/arm-trusted-firmware.git
-[submodule "meta-lava/recipes-bsp/u-boot/files/u-boot"]
-	path = meta-lava/recipes-bsp/u-boot/files/u-boot
-	url = https://github.com/ARM-software/u-boot.git
 [submodule "meta-lava/recipes-kernel/linux/files/linux-6.14.2"]
 	path = meta-lava/recipes-kernel/linux/files/linux-6.14.2
 	url = https://github.com/torvalds/linux.git
