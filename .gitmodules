@@ -4,3 +4,7 @@
 [submodule "meta-lava/recipes-bsp/u-boot/files/u-boot"]
 	path = meta-lava/recipes-bsp/u-boot/files/u-boot
 	url = https://github.com/u-boot/u-boot
+[submodule "meta-lava/recipes-bsp/tfa/files/arm-trusted-firmware"]
+	path = meta-lava/recipes-bsp/tfa/files/arm-trusted-firmware
+	url = https://github.com/ARM-software/arm-trusted-firmware.git
+	branch = v2.9-rc1
