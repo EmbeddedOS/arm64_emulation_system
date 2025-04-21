@@ -1,6 +1,6 @@
 # AArch64 emulation system
 
-This repository setup a simplest Yocto build system to emulate a complete aarch64 Linux system (trusted-firmware-a, u-boot, kernel, initrd, rootfs). This might be helpful for persons who want to:
+This repository setup a simplest Yocto build system to emulate a complete aarch64 Linux system (trusted-firmware-a, u-boot, kernel, initrd, rootfs). This might be helpful for those who want to:
 
 - Understand all basic components in a Aarch64 Linux Embedded System and how they work together.
 - Develop your own Linux distro, write BSP layer, and port components (kernel, u-boot, trusted-firmware-a) to your platform.
