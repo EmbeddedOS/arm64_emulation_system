@@ -16,6 +16,11 @@ repos:
     branch: kirkstone
     layers:
       meta:
+  meta-openembedded:
+    url: "https://git.openembedded.org/meta-openembedded"
+    branch: kirkstone
+    layers:
+      meta-oe:
   meta-arm:
     url: "git://git.yoctoproject.org/meta-arm"
     branch: kirkstone
